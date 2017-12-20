@@ -1,0 +1,27 @@
+diff -puN a/src/libtpmtss/tpm_tss_tss2.c b/src/libtpmtss/tpm_tss_tss2.c
+--- a/src/libtpmtss/tpm_tss_tss2.c	2017-03-20 21:18:00.000000000 +0100
++++ b/src/libtpmtss/tpm_tss_tss2.c	2017-12-20 10:10:21.326085000 +0100
+@@ -22,8 +22,8 @@
+ #include <asn1/oid.h>
+ #include <bio/bio_reader.h>
+ 
+-#include <tpm20.h>
+-#include <tcti_socket.h>
++#include <sapi/tpm20.h>
++#include <tcti/tcti_socket.h>
+ 
+ #define LABEL	"TPM 2.0 -"
+ 
+diff -puN a/src/libtpmtss/tpm_tss_tss2_names.c b/src/libtpmtss/tpm_tss_tss2_names.c
+--- a/src/libtpmtss/tpm_tss_tss2_names.c	2016-08-16 17:24:34.000000000 +0200
++++ b/src/libtpmtss/tpm_tss_tss2_names.c	2017-12-20 10:12:50.337003000 +0100
+@@ -17,7 +17,7 @@
+ 
+ #ifdef TSS_TSS2
+ 
+-#include <tpm20.h>
++#include <sapi/tpm20.h>
+ 
+ #ifndef TPM_ALG_ECMQV
+ #define TPM_ALG_ECMQV		(TPM_ALG_ID)0x001D
+

@@ -332,7 +332,7 @@ endef
 define Package/strongswan-utils
 $(call Package/strongswan/Default)
   TITLE+= utilities
-  DEPENDS:= +strongswan
+  DEPENDS:= +strongswan +tpm2.0-tss
 endef
 
 define Package/strongswan-utils/description
@@ -378,7 +378,7 @@ CONFIGURE_ARGS+= \
 	--disable-fast \
 	--enable-mediation \
 	--with-systemdsystemunitdir=no \
-	$(if $(CONFIG_PACKAGE_strongswan-utils),--enable-pki --enable-scepclient,--disable-pki --disable-scepclient) \
+	$(if $(CONFIG_PACKAGE_strongswan-utils),--enable-pki --enable-scepclient --enable-tss-tss2 --enable-tpm,--disable-pki --disable-scepclient --disable-tss-tss2 --disable-tpm) \
 	--with-random-device=/dev/random \
 	--with-urandom-device=/dev/urandom \
 	--with-routing-table="$(call qstrip,$(CONFIG_STRONGSWAN_ROUTING_TABLE))" \
