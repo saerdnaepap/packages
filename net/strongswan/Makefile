@@ -440,6 +440,9 @@ define Package/strongswan-utils/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/pki $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib/ipsec
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/scepclient $(1)/usr/lib/ipsec/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/libtpmtss.so.* $(1)/usr/lib/ipsec/
+	$(INSTALL_DIR) $(1)/usr/lib/ipsec/plugins
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/plugins/libstrongswan-tpm.so $(1)/usr/lib/ipsec/plugins/
 endef
 
 define Package/strongswan-libtls/install
