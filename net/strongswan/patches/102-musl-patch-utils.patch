@@ -13,8 +13,8 @@ diff -puN strongswan-5.5.3/src/libstrongswan/utils/in.h strongswan-5.5.3-mod/src
 +
 +#ifndef SRC_LIBSTRONGSWAN_UTILS_IN_H_
 +#define SRC_LIBSTRONGSWAN_UTILS_IN_H_
-+#ifndef _NETDB_H
-+#define	_NETINET_IN_H
++#ifndef _NETINET_IN_H
++#define _NETINET_IN_H
 +#define _LINUX_IN_H
 +#define _LINUX_IN6_H
 +
@@ -421,7 +421,7 @@ diff -puN strongswan-5.5.3/src/libstrongswan/utils/in.h strongswan-5.5.3-mod/src
 +}
 +#endif
 +
-+#endif /* _NETDB_H */
++#endif /* _NETINET_IN_H */
 +
 +
 +#endif /* SRC_LIBSTRONGSWAN_UTILS_IN_H_ */
