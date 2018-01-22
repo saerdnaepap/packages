@@ -86,6 +86,7 @@ PKG_MOD_AVAILABLE:= \
 	unity \
 	uci \
 	updown \
+	vici \
 	whitelist \
 	x509 \
 	xauth-eap \
@@ -202,6 +203,7 @@ $(call Package/strongswan/Default)
 	+strongswan-mod-uci \
 	+strongswan-mod-unity \
 	+strongswan-mod-updown \
+	+strongswan-mod-vici \
 	+strongswan-mod-whitelist \
 	+strongswan-mod-x509 \
 	+strongswan-mod-xauth-eap \
@@ -251,6 +253,7 @@ $(call Package/strongswan/Default)
 	+strongswan-mod-sshkey \
 	+strongswan-mod-stroke \
 	+strongswan-mod-updown \
+	+strongswan-mod-vici \
 	+strongswan-mod-x509 \
 	+strongswan-mod-xauth-generic \
 	+strongswan-mod-xcbc \
@@ -282,6 +285,7 @@ $(call Package/strongswan/Default)
 	+strongswan-mod-stroke \
 	+strongswan-mod-uci \
 	+strongswan-mod-updown \
+	+strongswan-mod-vici \
 	+strongswan-utils
 endef
 
@@ -309,6 +313,7 @@ $(call Package/strongswan/Default)
 	+strongswan-mod-socket-default \
 	+strongswan-mod-stroke \
 	+strongswan-mod-updown \
+	+strongswan-mod-vici \
 	+strongswan-mod-x509 \
 	+strongswan-mod-xcbc
 endef
@@ -332,7 +337,7 @@ endef
 define Package/strongswan-utils
 $(call Package/strongswan/Default)
   TITLE+= utilities
-  DEPENDS:= +strongswan +tpm2.0-tss
+  DEPENDS:= +strongswan +tpm2.0-tss +strongswan-mod-vici
 endef
 
 define Package/strongswan-utils/description
@@ -378,7 +383,7 @@ CONFIGURE_ARGS+= \
 	--disable-fast \
 	--enable-mediation \
 	--with-systemdsystemunitdir=no \
-	$(if $(CONFIG_PACKAGE_strongswan-utils),--enable-pki --enable-scepclient --enable-tss-tss2 --enable-tpm,--disable-pki --disable-scepclient --disable-tss-tss2 --disable-tpm) \
+	$(if $(CONFIG_PACKAGE_strongswan-utils),--enable-pki --enable-scepclient --enable-tss-tss2 --enable-tpm --enable-swanctl,--disable-pki --disable-scepclient --disable-tss-tss2 --disable-tpm --disable-swanctl) \
 	--with-random-device=/dev/random \
 	--with-urandom-device=/dev/urandom \
 	--with-routing-table="$(call qstrip,$(CONFIG_STRONGSWAN_ROUTING_TABLE))" \
@@ -436,13 +441,20 @@ endef
 define Package/strongswan-utils/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/ipsec $(1)/usr/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/swanctl $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/pki $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib/ipsec
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/scepclient $(1)/usr/lib/ipsec/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/libtpmtss.so.* $(1)/usr/lib/ipsec/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/libvici.so.* $(1)/usr/lib/ipsec/
 	$(INSTALL_DIR) $(1)/usr/lib/ipsec/plugins
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/plugins/libstrongswan-tpm.so $(1)/usr/lib/ipsec/plugins/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/ipsec/plugins/libstrongswan-vici.so $(1)/usr/lib/ipsec/plugins/
+	$(INSTALL_DIR) $(1)/etc/strongswan.d
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/strongswan.d/swanctl.conf $(1)/etc/strongswan.d/
+	$(INSTALL_DIR) $(1)/etc/swanctl
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/swanctl/swanctl.conf $(1)/etc/swanctl/
 endef
 
 define Package/strongswan-libtls/install
@@ -576,6 +588,7 @@ $(eval $(call BuildPlugin,test-vectors,crypto test vectors,))
 $(eval $(call BuildPlugin,uci,UCI config interface,+PACKAGE_strongswan-mod-uci:libuci))
 $(eval $(call BuildPlugin,unity,Cisco Unity extension,))
 $(eval $(call BuildPlugin,updown,updown firewall,))
+$(eval $(call BuildPlugin,vici,vici configuration interface, +strongswan-utils))
 $(eval $(call BuildPlugin,whitelist,peer identity whitelisting,))
 $(eval $(call BuildPlugin,x509,x509 certificate,))
 $(eval $(call BuildPlugin,xauth-eap,EAP XAuth backend,))
