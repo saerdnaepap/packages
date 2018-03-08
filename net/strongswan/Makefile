@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=strongswan
-PKG_VERSION:=5.5.3
+PKG_VERSION:=5.6.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_HASH:=c5ea54b199174708de11af9b8f4ecf28b5b0743d4bc0e380e741f25b28c0f8d4
+PKG_HASH:=e0a60a30ebf3c534c223559e1686497a21ded709a5d605c5123c2f52bcc22e92
 PKG_SOURCE_URL:=http://download.strongswan.org/ http://download2.strongswan.org/
 PKG_LICENSE:=GPL-2.0+
 PKG_MAINTAINER:=Stijn Tintel <stijn@linux-ipv6.be>
@@ -597,7 +597,7 @@ $(eval $(call BuildPlugin,tpm,support for tpm, +tpm2.0-tss))
 $(eval $(call BuildPlugin,uci,UCI config interface,+PACKAGE_strongswan-mod-uci:libuci))
 $(eval $(call BuildPlugin,unity,Cisco Unity extension,))
 $(eval $(call BuildPlugin,updown,updown firewall,))
-$(eval $(call BuildPlugin,vici,vici configuration interface, +strongswan-utils))
+$(eval $(call BuildPlugin,vici,vici configuration interface,))
 $(eval $(call BuildPlugin,whitelist,peer identity whitelisting,))
 $(eval $(call BuildPlugin,x509,x509 certificate,))
 $(eval $(call BuildPlugin,xauth-eap,EAP XAuth backend,))

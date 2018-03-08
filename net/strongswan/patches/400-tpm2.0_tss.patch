@@ -1,20 +1,27 @@
-diff -puN a/src/libtpmtss/tpm_tss_tss2.c b/src/libtpmtss/tpm_tss_tss2.c
---- a/src/libtpmtss/tpm_tss_tss2.c	2017-03-20 21:18:00.000000000 +0100
-+++ b/src/libtpmtss/tpm_tss_tss2.c	2017-12-20 10:10:21.326085000 +0100
-@@ -22,8 +22,8 @@
+Common subdirectories: strongswan-5.6.2.orig/src/libtpmtss/plugins and strongswan-5.6.2/src/libtpmtss/plugins
+diff -puN strongswan-5.6.2.orig/src/libtpmtss/tpm_tss_tss2.c strongswan-5.6.2/src/libtpmtss/tpm_tss_tss2.c
+--- strongswan-5.6.2.orig/src/libtpmtss/tpm_tss_tss2.c	2018-01-10 10:36:21.000000000 +0100
++++ strongswan-5.6.2/src/libtpmtss/tpm_tss_tss2.c	2018-03-08 09:52:29.216609000 +0100
+@@ -22,14 +22,14 @@
  #include <asn1/oid.h>
  #include <bio/bio_reader.h>
  
 -#include <tpm20.h>
--#include <tcti_socket.h>
 +#include <sapi/tpm20.h>
+ 
+ #ifdef TSS2_TCTI_TABRMD
+ #include <tcti/tcti-tabrmd.h>
+ #endif /* TSS2_TCTI_TABRMD */
+ 
+ #ifdef TSS2_TCTI_SOCKET
+-#include <tcti_socket.h>
 +#include <tcti/tcti_socket.h>
  
- #define LABEL	"TPM 2.0 -"
- 
-diff -puN a/src/libtpmtss/tpm_tss_tss2_names.c b/src/libtpmtss/tpm_tss_tss2_names.c
---- a/src/libtpmtss/tpm_tss_tss2_names.c	2016-08-16 17:24:34.000000000 +0200
-+++ b/src/libtpmtss/tpm_tss_tss2_names.c	2017-12-20 10:12:50.337003000 +0100
+ #define TCTI_SOCKET_DEFAULT_ADDRESS "127.0.0.1"
+ #define TCTI_SOCKET_DEFAULT_PORT     2323
+diff -puN strongswan-5.6.2.orig/src/libtpmtss/tpm_tss_tss2_names.c strongswan-5.6.2/src/libtpmtss/tpm_tss_tss2_names.c
+--- strongswan-5.6.2.orig/src/libtpmtss/tpm_tss_tss2_names.c	2016-08-16 17:24:34.000000000 +0200
++++ strongswan-5.6.2/src/libtpmtss/tpm_tss_tss2_names.c	2018-03-08 09:42:47.395991000 +0100
 @@ -17,7 +17,7 @@
  
  #ifdef TSS_TSS2
@@ -24,4 +31,3 @@ diff -puN a/src/libtpmtss/tpm_tss_tss2_names.c b/src/libtpmtss/tpm_tss_tss2_name
  
  #ifndef TPM_ALG_ECMQV
  #define TPM_ALG_ECMQV		(TPM_ALG_ID)0x001D
-
