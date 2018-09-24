@@ -1,6 +1,6 @@
 #!/bin/sh /etc/rc.common
 
-START=90
+START=99
 STOP=10
 
 . $IPKG_INSTROOT/lib/functions.sh
@@ -323,7 +323,11 @@ prepare_env() {
 
 start() {
 	prepare_env
-	[ $ENABLED_REMOTE_PEERS != 0 -o ! -f $UCI_IPSEC_CONFIG ] && ipsec start
+	[ $ENABLED_REMOTE_PEERS != 0 -o ! -f $UCI_IPSEC_CONFIG ] && {
+		ipsec start
+		sleep 2
+		swanctl --load-all
+	}
 }
 
 stop() {
